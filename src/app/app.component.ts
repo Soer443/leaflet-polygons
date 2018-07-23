@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MapService} from "./map.service";
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,9 @@ import {MapService} from "./map.service";
 })
 export class AppComponent implements OnInit {
 
-  constructor( private mapService: MapService){}
+  constructor(private mapService: MapService){}
 
-  ngOnInit(){
-    this.mapService.init();
+  ngOnInit() {
+    this.mapService.init()
   }
 }

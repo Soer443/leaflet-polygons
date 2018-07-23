@@ -5,11 +5,13 @@ import * as L from 'leaflet';
 @Injectable()
 export class MapService {
 
+
   init() {
     let polygons = [];
     let arr = [];
     let selected = '';
     const mymap = L.map('mapid', {editable: true}).setView([51.505, -0.09], 13);
+    map: mymap;
 
     L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -163,5 +165,36 @@ export class MapService {
         selected = JSON.stringify(polygon5.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
         document.getElementById('selected').innerHTML = selected;
         }
+    function showFunc() {
+      const latLngsString =  document.getElementById('dPoly').value;
+      const object = JSON.parse(latLngsString);
+      polygons.push(L.polygon(object, {color: 'green'}).addTo(mymap));
+    }
+    function removePolygon() {
+      if (polygons.length == 0) {
+        return;
+      }
+      mymap.removeLayer(polygons[ polygons.length - 1 ]);
+      polygons = polygons.slice(0, polygons.length - 1);
+    }
+
+
+    function getSecondPoint() {
+      const latLngsString = document.getElementById('dPoly').value;
+      const object = JSON.parse(latLngsString);
+      console.log(object);
+      const c = {radius: 0.005};
+      const lat = object.lat;
+      const lng = object.lng;
+      const h = (object.heading * 3.1416) / 180;
+      const lat1 = lat + c.radius - (c.radius * Math.sin(h));
+      const lng1 = lng + (Math.sin(h) * c.radius);
+      var polyline = [
+        {lat: lat, lng: lng},
+        {lat: lat1, lng: lng1}
+      ];
+      console.log(polyline);
+      var r = L.polyline(polyline, {color: 'red'}).addTo(mymap);
+    }
   }
 }
