@@ -1,5 +1,7 @@
 import 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw';
+import 'leaflet-draw/dist/leaflet.draw.css';
 
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 
 
-
 @Injectable()
 export class MapService {
 
@@ -60,7 +59,6 @@ export class MapService {
     mymap.on('draw:deleted', function () {
     });
 
-
     let polygon1 = L.polygon([
       [51.50311291428311, -0.08488655090332031],
       [51.503099557478556, -0.08403897285461426],
@@ -70,7 +68,7 @@ export class MapService {
       [51.502538568153156, -0.0848972797393799],
       [51.502545246638114, -0.08531570434570314]
     ], {color: '#3388FF'}).addTo(mymap);
-    // polygon1.enableEdit();
+    // polygon1.editable();
 
     let latlngs2 = [
       [-54.8293576735939, 291.66370332241064],
@@ -136,30 +134,34 @@ export class MapService {
 
     // polygon5.enableEdit();
 
-    function goToPoligonOne() {
-      mymap.flyToBounds(polygon1);
-      selected = JSON.stringify(polygon1.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
-      document.getElementById('selected').innerHTML = selected;
-    }
-    function goToPoligonTwo() {
-      mymap.flyToBounds(polygon2);
-      selected = JSON.stringify(polygon2.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
-      document.getElementById('selected').innerHTML = selected;
-    }
-    function goToPoligonThree() {
-      mymap.flyToBounds(polygon3);
-      selected = JSON.stringify(polygon3.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
-      document.getElementById('selected').innerHTML = selected;
-    }
-    function goToPoligonFour() {
-      mymap.flyToBounds(polygon4);
-      selected = JSON.stringify(polygon4.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
-      document.getElementById('selected').innerHTML = selected;
-    }
-    function goToPoligonFive() {
-      mymap.flyToBounds(polygon5);
-      selected = JSON.stringify(polygon5.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
-      document.getElementById('selected').innerHTML = selected;
-    }
+      function goToOne() {
+        mymap.flyToBounds(polygon1);
+        selected = JSON.stringify(polygon1.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
+        document.getElementById('selected').innerHTML = selected;
+      }
+
+      function goToTwo() {
+        mymap.flyToBounds(polygon2);
+        selected = JSON.stringify(polygon2.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
+        document.getElementById('selected').innerHTML = selected;
+      }
+
+      function goToThree() {
+        mymap.flyToBounds(polygon3);
+        selected = JSON.stringify(polygon3.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
+        document.getElementById('selected').innerHTML = selected;
+      }
+
+      function goToFour() {
+        mymap.flyToBounds(polygon4);
+        selected = JSON.stringify(polygon4.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
+        document.getElementById('selected').innerHTML = selected;
+      }
+
+      function goToFive() {
+        mymap.flyToBounds(polygon5);
+        selected = JSON.stringify(polygon5.getLatLngs()[0].map((d) => ({lat: d.lat, lng: d.lng})));
+        document.getElementById('selected').innerHTML = selected;
+        }
   }
 }
