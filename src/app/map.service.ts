@@ -28,7 +28,7 @@ export class MapService {
   private GEOMETRIES = GEOMETRIES;
   private polygons = [];
   private perimeters = [];
-  selectedPolygon = [];
+  selectedPolygon = '';
 
   init() {
     this.mymap = L.map('mapid', {editable: true}).setView([51.505, -0.09], 13);
