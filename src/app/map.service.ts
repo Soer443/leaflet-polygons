@@ -62,7 +62,7 @@ export class MapService {
   goToPolygon(n) {
     this.mymap.flyToBounds( this.polygons[n]);
     const latlngs = this.polygons[n].getLatLngs()[0];
-     this.selectedPolygon = this.polygons[n].getLatLngs()[0];
+    this.selectedPolygon = JSON.stringify(this.polygons[n].getLatLngs()[0].map((latlng) => ({lat: latlng.lat, lng: latlng.lng})));
      console.log(this.selectedPolygon);
      return this.selectedPolygon
   }
