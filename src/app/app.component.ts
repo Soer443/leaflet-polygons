@@ -9,9 +9,11 @@ import * as L from 'leaflet';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private mapService: MapService){}
+  constructor(public mapService: MapService){}
 
   ngOnInit() {
     this.mapService.init()
   }
+
+
 }

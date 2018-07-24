@@ -3,30 +3,30 @@
   <div id="buttons">
     <ul>
       <li>
-        <a (click)="goToPoligonOne()">Go to Poligon in London</a>
+        <a (click)="mapService.goToPolygon(0)">Go to Poligon in London</a>
       </li>
       <li>
-        <a  (click)="goToPoligonTwo()">Go to Poligon in Ushuaia</a>
+        <a  (click)="mapService.goToPolygon(1)">Go to Poligon in Ushuaia</a>
       </li>
       <li>
-        <a (click)="goToPoligonThree()">Go to Poligon in Baku</a>
+        <a (click)="mapService.goToPolygon(2)">Go to Poligon in Baku</a>
       </li>
       <li>
-        <a (click)="goToPoligonFour()">Go to Poligon in Sao Paulo</a>
+        <a (click)="mapService.goToPolygon(3)">Go to Poligon in Sao Paulo</a>
       </li>
       <li>
-        <a  (click)="goToPoligonFive()">Go to Poligon on Ecuador</a>
+        <a  (click)="mapService.goToPolygon(4)">Go to Poligon on Ecuador</a>
       </li>
     </ul>
   </div>
-  <div id="polyInfo">
+  <div id="polygonsInfo">
     <div id="selected" ></div>
   </div>
-  <div id="newPolyBar">
-    <textarea id="dPoly"></textarea>
+  <div id="perimetersContainer">
+    <textarea id="perimeter"></textarea>
   </div>
-  <div id="showButton">
-    <button id="show" (click)="showFunc(polygons)">show</button>
-    <button id="removePolygon" (click)="removePolygon()">Remove</button>
+  <div id="perimetersBtn">
+    <button id="addPerimeter" (click)="mapService.addPerimeter(perimeter)">show</button>
+    <button id="removePerimeter" (click)="mapService.removePerimeter()">Remove</button>
   </div>
 </div>
