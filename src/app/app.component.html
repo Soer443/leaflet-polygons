@@ -20,10 +20,10 @@
     </ul>
   </div>
   <div id="polygonsInfo">
-    <div id="selected" ></div>
+    <div id="selected" >{{mapService.selectedPolygon}}</div>
   </div>
   <div id="perimetersContainer">
-    <textarea id="perimeter"></textarea>
+    <textarea id="perimeter" [(ngModel)]="perimeter"></textarea>
   </div>
   <div id="perimetersBtn">
     <button id="addPerimeter" (click)="mapService.addPerimeter(perimeter)">show</button>

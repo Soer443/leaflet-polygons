@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { GEOMETRIES } from "./geometries";
+import 'leaflet-editable';
 
 const TOOLBAR_OPTIONS = {
   position: 'bottomright',
@@ -18,7 +19,7 @@ const TILES_OPTIONS = {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   maxZoom: 18,
   id: 'mapbox.streets',
-  accessToken: 'pk.eyJ1Ijoic29lcjQ0MyIsImEiOiJjampvbnBwd20wMHA0M3ZvYnkxamRzeWgyIn0.Cgeft_nl8sS4ow4hujreVw'
+  accessToken: 'pk.eyJ1Ijoic29lcjQ0MyIsImEiOiJjampvbnBwd20wMHA0M3ZvYnkxamRzeWgyIn0.Cgeft_nl8sS4ow4hujreVw',
 };
 
 @Injectable()
@@ -27,6 +28,7 @@ export class MapService {
   private GEOMETRIES = GEOMETRIES;
   private polygons = [];
   private perimeters = [];
+  selectedPolygon = [];
 
   init() {
     this.mymap = L.map('mapid', {editable: true}).setView([51.505, -0.09], 13);
@@ -50,20 +52,24 @@ export class MapService {
       drawnItems.addLayer(e.layer);
     });
 
-    this.polygons = this.GEOMETRIES.map((geo) => L.polygon(geo, {color: '#3388FF'}).addTo(this.mymap));
-
+    this.polygons = this.GEOMETRIES.map((geo) => {
+      const poly = L.polygon(geo, {color: '#3388FF'}).addTo(this.mymap);
+      poly.enableEdit();
+      return poly;
+    });
   }
 
-  goToPolygon(n: number) {
-    this.mymap.flyToBounds(this.polygons[n]);
+  goToPolygon(n) {
+    this.mymap.flyToBounds( this.polygons[n]);
     const latlngs = this.polygons[n].getLatLngs()[0];
-    document.getElementById('selected').innerHTML = JSON.stringify(latlngs);
+     this.selectedPolygon = this.polygons[n].getLatLngs()[0];
+     console.log(this.selectedPolygon);
+     return this.selectedPolygon
   }
 
-  addPerimeter() {
-    const str =  document.getElementById('perimeter').value;
-    console.log(str);
-    const object = JSON.parse(str);
+  addPerimeter(perimeter) {
+    console.log(perimeter);
+    const object = JSON.parse(perimeter);
     this.perimeters.push(L.polygon(object, {color: 'green'}).addTo(this.mymap));
   }
 
