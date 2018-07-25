@@ -26,7 +26,7 @@
     <textarea id="perimeter" [(ngModel)]="perimeter"></textarea>
   </div>
   <div id="perimetersBtn">
-    <button id="addPerimeter" (click)="mapService.addPerimeter(perimeter)">show</button>
-    <button id="removePerimeter" (click)="mapService.removePerimeter()">Remove</button>
+    <button id="addPerimeter" (click)="mapService.getSecondPoint(perimeter)">show</button>
+    <button id="removePerimeter" (click)="mapService.addPerimeter()">Remove</button>
   </div>
 </div>

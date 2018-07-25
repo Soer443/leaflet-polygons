@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { GEOMETRIES } from "./geometries";
 import 'leaflet-editable';
+import 'leaflet-path-drag';
 
 const TOOLBAR_OPTIONS = {
   position: 'bottomright',
@@ -9,8 +10,8 @@ const TOOLBAR_OPTIONS = {
     circle: false, // Turns off this drawing tool
     marker: false, // Turns off this drawing tool
     circlemarker: false, // Turns off this drawing tool
-    polyline: false, // Turns off this drawing tool
     rectangle: false, // Turns off this drawing tool
+    editToolbar: true,
   }
 };
 
@@ -31,10 +32,16 @@ export class MapService {
   selectedPolygon = '';
 
   init() {
-    this.mymap = L.map('mapid', {editable: true}).setView([51.505, -0.09], 13);
+
+    this.mymap = L.map('mapid', {editable: true, draggable: true }).setView([51.505, -0.09], 13);
+    let editableLayers = new L.FeatureGroup();
+    this.mymap.addLayer(editableLayers);
+
+    this.mymap.on('click', function(evt) {
+
+    });
 
     L.tileLayer(TILES_URL, TILES_OPTIONS).addTo(this.mymap);
-
 
 
     let drawnItems = new L.FeatureGroup();
@@ -48,23 +55,37 @@ export class MapService {
 
     this.mymap.addControl(drawControl);
 
-    this.mymap.on('draw:created', function (e) {
-      drawnItems.addLayer(e.layer);
-    });
-
     this.polygons = this.GEOMETRIES.map((geo) => {
-      const poly = L.polygon(geo, {color: '#3388FF'}).addTo(this.mymap);
+      const poly = L.polygon(geo,{color: '#3388FF', draggable:true}).addTo(this.mymap);
       poly.enableEdit();
       return poly;
     });
+
+    var newPolygon;
+
+    this.mymap.on('draw:created', function (e) {
+      drawnItems.addLayer(e.layer);
+      e.layer.enableEdit();
+    this.newPolygon = e.layer.getLatLngs();
+      document.getElementById('selected').innerHTML = this.newPolygon;
+    });
+
+    this.mymap.on('draw:edited', function(e) {
+      let layers = e.layers;
+      layers.eachLayer(function(layer){
+        console.log(layer.getLatLngs())
+      });
+    });
   }
+
+
 
   goToPolygon(n) {
     this.mymap.flyToBounds( this.polygons[n]);
     const latlngs = this.polygons[n].getLatLngs()[0];
     this.selectedPolygon = JSON.stringify(this.polygons[n].getLatLngs()[0].map((latlng) => ({lat: latlng.lat, lng: latlng.lng})));
      console.log(this.selectedPolygon);
-     return this.selectedPolygon
+     return this.selectedPolygon;
   }
 
   addPerimeter(perimeter) {
@@ -82,21 +103,24 @@ export class MapService {
   }
 
 
-  getSecondPoint() {
-    // const latLngsString = document.getElementById('dPoly').value;
-    // const object = JSON.parse(latLngsString);
-    // console.log(object);
-    // const c = {radius: 0.005};
-    // const lat = object.lat;
-    // const lng = object.lng;
-    // const h = (object.heading * 3.1416) / 180;
-    // const lat1 = lat + c.radius - (c.radius * Math.sin(h));
-    // const lng1 = lng + (Math.sin(h) * c.radius);
-    // var polyline = [
-    //   {lat: lat, lng: lng},
-    //   {lat: lat1, lng: lng1}
-    // ];
-    // console.log(polyline);
-    // var r = L.polyline(polyline, {color: 'red'}).addTo(mymap);
+  getSecondPoint(perimeter) {
+    let object = JSON.parse(perimeter);
+    let arr = this.mymap.project(object);
+    let c = {radius: 60};
+    let y = arr.y;
+    let x = arr.x;
+    let h = (object.heading * 3.1416) / 180;
+    let y2 = y + (c.radius * Math.cos(h));
+    let x2 = x + (Math.sin(h) * c.radius);
+    let arr2 = {y:y2, x:x2};
+    console.log(arr2);
+    let arr3 = this.mymap.unproject(arr2);
+    console.log(arr3);
+    var polyline = [
+      arr3,
+      object
+    ];
+    console.log(polyline);
+    var r = L.polyline(polyline, {color: 'red'}).addTo(this.mymap);
   }
 }
