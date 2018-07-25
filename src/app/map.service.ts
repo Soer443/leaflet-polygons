@@ -92,7 +92,27 @@ export class MapService {
     console.log(perimeter);
     const object = JSON.parse(perimeter);
     this.perimeters.push(L.polygon(object, {color: 'green'}).addTo(this.mymap));
+    object.map((ob) => {
+      if (ob.heading !== null) {
+        var arr = this.mymap.project(ob);
+        let c = {radius: 60};
+        let y = arr.y;
+        let x = arr.x;
+        let h = (ob.heading * 3.1416) / 180;
+        let y2 = y + (c.radius * Math.cos(h));
+        let x2 = x + (Math.sin(h) * c.radius);
+        let arr2 = {y: y2, x: x2};
+        let arr3 = this.mymap.unproject(arr2);
+        var polyline = [
+          arr3,
+          ob
+        ];
+        this.perimeters.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
+      }
+    })
   }
+
+
 
   removePerimeter() {
     if (this.perimeters.length === 0) {
@@ -102,25 +122,26 @@ export class MapService {
     this.perimeters = this.perimeters.slice(0, this.perimeters.length - 1);
   }
 
-
   getLines(perimeter) {
     let object = JSON.parse(perimeter);
-    let arr = this.mymap.project(object);
-    let c = {radius: 40};
-    let y = arr.y;
-    let x = arr.x;
-    let h = (object.heading * 3.1416) / 180;
-    let y2 = y + (c.radius * Math.cos(h));
-    let x2 = x + (Math.sin(h) * c.radius);
-    let arr2 = {y:y2, x:x2};
-    console.log(arr2);
-    let arr3 = this.mymap.unproject(arr2);
-    console.log(arr3);
-    var polyline = [
-      arr3,
-      object
-    ];
-    console.log(polyline);
-    var r = L.polyline(polyline, {color: 'red'}).addTo(this.mymap);
-  }
+    object.map((ob) => {
+      var arr = this.mymap.project(ob);
+      let c = {radius: 60};
+      let y = arr.y;
+      let x = arr.x;
+      let h = (ob.heading * 3.1416) / 180;
+      let y2 = y + (c.radius * Math.cos(h));
+      let x2 = x + (Math.sin(h) * c.radius);
+      let arr2 = {y: y2, x: x2};
+      console.log(arr2);
+      let arr3 = this.mymap.unproject(arr2);
+      console.log(arr3);
+      var polyline = [
+        arr3,
+        ob
+      ];
+      console.log(polyline);
+      this.perimeters.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
+      return polyline;
+    })}
 }

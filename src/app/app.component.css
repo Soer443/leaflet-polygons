@@ -44,15 +44,11 @@ textarea {
   height: 30px;
 }
 #addPerimeter {
-  width: 33%;
-  height: 30px;
-}
-#getLines {
-  width: 33%;
+  width: 50%;
   height: 30px;
 }
 #removePerimeter {
-  width: 33%;
+  width: 50%;
   height: 30px;
 }
 li {
