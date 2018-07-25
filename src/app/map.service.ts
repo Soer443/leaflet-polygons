@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { GEOMETRIES } from "./geometries";
 import 'leaflet-editable';
 import 'leaflet-path-drag';
+import { isUndefined } from 'lodash';
 
 const TOOLBAR_OPTIONS = {
   position: 'bottomright',
@@ -11,7 +12,7 @@ const TOOLBAR_OPTIONS = {
     marker: false, // Turns off this drawing tool
     circlemarker: false, // Turns off this drawing tool
     rectangle: false, // Turns off this drawing tool
-    editToolbar: true,
+    polyline: false,
   }
 };
 
@@ -37,12 +38,8 @@ export class MapService {
     let editableLayers = new L.FeatureGroup();
     this.mymap.addLayer(editableLayers);
 
-    this.mymap.on('click', function(evt) {
-
-    });
-
+    this.mymap.on('click', function(evt) {});
     L.tileLayer(TILES_URL, TILES_OPTIONS).addTo(this.mymap);
-
 
     let drawnItems = new L.FeatureGroup();
     this.mymap.addLayer(drawnItems);
@@ -78,8 +75,6 @@ export class MapService {
     });
   }
 
-
-
   goToPolygon(n) {
     this.mymap.flyToBounds( this.polygons[n]);
     const latlngs = this.polygons[n].getLatLngs()[0];
@@ -88,31 +83,28 @@ export class MapService {
      return this.selectedPolygon;
   }
 
-  addPerimeter(perimeter) {
-    console.log(perimeter);
-    const object = JSON.parse(perimeter);
-    this.perimeters.push(L.polygon(object, {color: 'green'}).addTo(this.mymap));
-    object.map((ob) => {
-      if (ob.heading !== null) {
-        var arr = this.mymap.project(ob);
-        let c = {radius: 60};
-        let y = arr.y;
-        let x = arr.x;
-        let h = (ob.heading * 3.1416) / 180;
-        let y2 = y + (c.radius * Math.cos(h));
-        let x2 = x + (Math.sin(h) * c.radius);
-        let arr2 = {y: y2, x: x2};
-        let arr3 = this.mymap.unproject(arr2);
+  addPerimeter(str) {
+    const latlngs = JSON.parse(str);
+    this.perimeters.push(L.polygon(latlngs, {color: 'green'}).addTo(this.mymap));
+    const RADIUS = 60;
+
+    const polylines = latlngs
+      .filter((latlng) => !isUndefined(latlng.heading))
+      .map((latlng) => {
+        const point = this.mymap.project(latlng);
+        let rad = (latlng.heading * Math.PI) / 180;
+        let y2 = point.y + (RADIUS * Math.cos(rad));
+        let x2 = point.x + (Math.sin(rad) *RADIUS);
+        let latlng2 = this.mymap.unproject([x2, y2]);
         var polyline = [
-          arr3,
-          ob
+          latlng2,
+          latlng
         ];
-        this.perimeters.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
-      }
-    })
+        return L.polyline(polyline, {color: 'red'}).addTo(this.mymap);
+      });
+
+    this.polygons.concat(polylines);
   }
-
-
 
   removePerimeter() {
     if (this.perimeters.length === 0) {
@@ -143,5 +135,6 @@ export class MapService {
       console.log(polyline);
       this.perimeters.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
       return polyline;
-    })}
+    })
+  }
 }
