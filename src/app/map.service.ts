@@ -103,10 +103,10 @@ export class MapService {
   }
 
 
-  getSecondPoint(perimeter) {
+  getLines(perimeter) {
     let object = JSON.parse(perimeter);
     let arr = this.mymap.project(object);
-    let c = {radius: 60};
+    let c = {radius: 40};
     let y = arr.y;
     let x = arr.x;
     let h = (object.heading * 3.1416) / 180;
