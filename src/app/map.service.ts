@@ -86,7 +86,7 @@ export class MapService {
   addPerimeter(str) {
     const latlngs = JSON.parse(str);
     this.perimeters.push(L.polygon(latlngs, {color: 'green'}).addTo(this.mymap));
-    const RADIUS = 60;
+    const RADIUS = 10;
 
     const polylines = latlngs
       .filter((latlng) => !isUndefined(latlng.heading))
@@ -102,7 +102,6 @@ export class MapService {
         ];
         return L.polyline(polyline, {color: 'red'}).addTo(this.mymap);
       });
-
     this.polygons.concat(polylines);
   }
 
@@ -112,29 +111,5 @@ export class MapService {
     }
     this.mymap.removeLayer(this.perimeters[ this.perimeters.length - 1 ]);
     this.perimeters = this.perimeters.slice(0, this.perimeters.length - 1);
-  }
-
-  getLines(perimeter) {
-    let object = JSON.parse(perimeter);
-    object.map((ob) => {
-      var arr = this.mymap.project(ob);
-      let c = {radius: 60};
-      let y = arr.y;
-      let x = arr.x;
-      let h = (ob.heading * 3.1416) / 180;
-      let y2 = y + (c.radius * Math.cos(h));
-      let x2 = x + (Math.sin(h) * c.radius);
-      let arr2 = {y: y2, x: x2};
-      console.log(arr2);
-      let arr3 = this.mymap.unproject(arr2);
-      console.log(arr3);
-      var polyline = [
-        arr3,
-        ob
-      ];
-      console.log(polyline);
-      this.perimeters.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
-      return polyline;
-    })
   }
 }
