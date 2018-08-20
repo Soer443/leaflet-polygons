@@ -38,6 +38,7 @@ export class MapService {
   private mymap: any;
   private GEOMETRIES = GEOMETRIES;
   private polygons = [];
+  private polylines = [];
   private perimeters = [];
   selectedPolygon = '';
 
@@ -102,16 +103,16 @@ export class MapService {
       .map((latlng) => {
         const point = this.mymap.project(latlng);
         let rad = (latlng.heading * Math.PI) / 180;
-        let y2 = point.y + (RADIUS * Math.cos(rad));
-        let x2 = point.x + (Math.sin(rad) *RADIUS);
+        let y2 = point.y - (RADIUS * Math.cos(rad));
+        let x2 = point.x + (Math.sin(rad) * RADIUS);
         let latlng2 = this.mymap.unproject([x2, y2]);
         var polyline = [
           latlng2,
           latlng
         ];
-        return L.polyline(polyline, {color: 'red'}).addTo(this.mymap);
+        this.polylines.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
       });
-    this.polygons.concat(polylines);
+    // this.perimeters.concat(polylines);
   }
 
   removePerimeter() {
@@ -120,5 +121,9 @@ export class MapService {
     }
     this.mymap.removeLayer(this.perimeters[ this.perimeters.length - 1 ]);
     this.perimeters = this.perimeters.slice(0, this.perimeters.length - 1);
+    for(let i = 0; i <= this.polylines.length -1; i++ ){
+      this.mymap.removeLayer(this.polylines[i]);
+    }
+    this.polylines = [];
   }
 }
