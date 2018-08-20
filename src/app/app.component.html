@@ -1,8 +1,65 @@
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div id="mapid"></div>
+<div id="infobar">
+  <div id="btnPanel">
+    <div id="buttons">
+      <ul>
+        <li>
+          <a (click)="mapService.goToPolygon(0)">Go to Poligon in London</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(1)">Go to Poligon in Ushuaia</a>
+        </li>
+        <li>
+          <a (click)="mapService.goToPolygon(2)">Go to Poligon in Baku</a>
+        </li>
+        <li>
+          <a (click)="mapService.goToPolygon(3)">Go to Poligon in Sao Paulo</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(4)">Go to Poligon on Ecuador</a>
+        </li>
+      </ul>
+    </div>
+    <div id="buttons2">
+      <ul>
+        <li>
+          <a  (click)="mapService.goToPolygon(5)">polygon 1</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(6)">polygon  2</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(7)">polygon  3</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(8)">polygon  4</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(9)">polygon  5</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(10)">polygon  6</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(11)">polygon  7</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(12)">polygon  8</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(13)">polygon  9</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="polygonsInfo">
+    <div id="selected" >{{mapService.selectedPolygon}}</div>
+  </div>
+  <div id="perimetersContainer">
+    <textarea id="perimeter" [(ngModel)]="perimeter"></textarea>
+  </div>
+  <div id="perimetersBtn">
+    <button id="addPerimeter" (click)="mapService.addPerimeter(perimeter)">perimeters</button>
+    <button id="removePerimeter" (click)="mapService.removePerimeter()">remove</button>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-
