@@ -1,23 +1,56 @@
 <div id="mapid"></div>
 <div id="infobar">
-  <div id="buttons">
-    <ul>
-      <li>
-        <a (click)="mapService.goToPolygon(0)">Go to Poligon in London</a>
-      </li>
-      <li>
-        <a  (click)="mapService.goToPolygon(1)">Go to Poligon in Ushuaia</a>
-      </li>
-      <li>
-        <a (click)="mapService.goToPolygon(2)">Go to Poligon in Baku</a>
-      </li>
-      <li>
-        <a (click)="mapService.goToPolygon(3)">Go to Poligon in Sao Paulo</a>
-      </li>
-      <li>
-        <a  (click)="mapService.goToPolygon(4)">Go to Poligon on Ecuador</a>
-      </li>
-    </ul>
+  <div id="btnPanel">
+    <div id="buttons">
+      <ul>
+        <li>
+          <a (click)="mapService.goToPolygon(0)">Go to Poligon in London</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(1)">Go to Poligon in Ushuaia</a>
+        </li>
+        <li>
+          <a (click)="mapService.goToPolygon(2)">Go to Poligon in Baku</a>
+        </li>
+        <li>
+          <a (click)="mapService.goToPolygon(3)">Go to Poligon in Sao Paulo</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(4)">Go to Poligon on Ecuador</a>
+        </li>
+      </ul>
+    </div>
+    <div id="buttons2">
+      <ul>
+        <li>
+          <a  (click)="mapService.goToPolygon(5)">polygon 1</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(6)">polygon  2</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(7)">polygon  3</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(8)">polygon  4</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(9)">polygon  5</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(10)">polygon  6</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(11)">polygon  7</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(12)">polygon  8</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(13)">polygon  9</a>
+        </li>
+      </ul>
+    </div>
   </div>
   <div id="polygonsInfo">
     <div id="selected" >{{mapService.selectedPolygon}}</div>

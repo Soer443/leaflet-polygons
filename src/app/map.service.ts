@@ -4,6 +4,7 @@ import { GEOMETRIES } from "./geometries";
 import 'leaflet-editable';
 import 'leaflet-path-drag';
 import { isUndefined } from 'lodash';
+import 'leaflet.markercluster';
 
 const TOOLBAR_OPTIONS = {
   position: 'bottomright',
@@ -23,6 +24,14 @@ const TILES_OPTIONS = {
   id: 'mapbox.streets',
   accessToken: 'pk.eyJ1Ijoic29lcjQ0MyIsImEiOiJjampvbnBwd20wMHA0M3ZvYnkxamRzeWgyIn0.Cgeft_nl8sS4ow4hujreVw',
 };
+const ANIMATE_OPTIONS = {
+  animate: false,
+  flyToBound: {
+    animate: false,
+  },
+  markerZoomAnimation: false,
+  zoomAnimation:false,
+}
 
 @Injectable()
 export class MapService {
@@ -76,7 +85,7 @@ export class MapService {
   }
 
   goToPolygon(n) {
-    this.mymap.flyToBounds( this.polygons[n]);
+    this.mymap.flyToBounds( this.polygons[n], ANIMATE_OPTIONS);
     const latlngs = this.polygons[n].getLatLngs()[0];
     this.selectedPolygon = JSON.stringify(this.polygons[n].getLatLngs()[0].map((latlng) => ({lat: latlng.lat, lng: latlng.lng})));
      console.log(this.selectedPolygon);
