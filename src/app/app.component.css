@@ -17,7 +17,7 @@
   display: flex;
 }
 #buttons {
-  width: 50%;
+  width: 33%;
   height:  190px;
   border-bottom: solid;
   border-color: #c7c6c2;
@@ -25,8 +25,18 @@
   text-align: left;
   font-size: 15px;
 }
+
 #buttons2 {
-  width: 50%;
+  width: 35%;
+  height:  190px;
+  border-bottom: solid;
+  border-color: #c7c6c2;
+  overflow-scrolling: auto;
+  text-align: left;
+  font-size: 15px;
+}
+#buttons3 {
+  width: 35%;
   height:  190px;
   border-bottom: solid;
   border-color: #c7c6c2;
@@ -80,3 +90,4 @@ a:hover {
   color: red;
   cursor: pointer;
 }
+

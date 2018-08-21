@@ -4,53 +4,66 @@
     <div id="buttons">
       <ul>
         <li>
-          <a (click)="mapService.goToPolygon(0)">Go to Poligon in London</a>
+          <a (click)="mapService.goToPolygon(0)" [style.color]=" mapService.selectedBtn == 0 ? 'red' : 'black'">London</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(1)">Go to Poligon in Ushuaia</a>
+          <a  (click)="mapService.goToPolygon(1)"  [style.color]=" mapService.selectedBtn == 1 ? 'red' : 'black'" >Ushuaia</a>
         </li>
         <li>
-          <a (click)="mapService.goToPolygon(2)">Go to Poligon in Baku</a>
+          <a (click)="mapService.goToPolygon(2)" [style.color]=" mapService.selectedBtn == 2 ? 'red' : 'black'">Baku</a>
         </li>
         <li>
-          <a (click)="mapService.goToPolygon(3)">Go to Poligon in Sao Paulo</a>
+          <a (click)="mapService.goToPolygon(3)" [style.color]=" mapService.selectedBtn == 3 ? 'red' : 'black'">Sao Paulo</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(4)">Go to Poligon on Ecuador</a>
+          <a  (click)="mapService.goToPolygon(4)" [style.color]=" mapService.selectedBtn == 4 ? 'red' : 'black'">Ecuador</a>
         </li>
       </ul>
     </div>
     <div id="buttons2">
       <ul>
         <li>
-          <a  (click)="mapService.goToPolygon(5)">polygon 1</a>
+          <a  (click)="mapService.goToPolygon(5)" [style.color]=" mapService.selectedBtn == 5 ? 'red' : 'black'">polygon 1</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(6)">polygon  2</a>
+          <a  (click)="mapService.goToPolygon(6)" [style.color]=" mapService.selectedBtn == 6 ? 'red' : 'black'">polygon 2</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(7)">polygon  3</a>
+          <a  (click)="mapService.goToPolygon(7)" [style.color]=" mapService.selectedBtn == 7 ? 'red' : 'black'">polygon 3</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(8)">polygon  4</a>
+          <a  (click)="mapService.goToPolygon(8)" [style.color]=" mapService.selectedBtn == 8 ? 'red' : 'black'">polygon 4</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(9)">polygon  5</a>
+          <a  (click)="mapService.goToPolygon(9)" [style.color]=" mapService.selectedBtn == 9 ? 'red' : 'black'">polygon 5</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(10)">polygon  6</a>
+          <a  (click)="mapService.goToPolygon(10)" [style.color]=" mapService.selectedBtn == 10 ? 'red' : 'black'">polygon 6</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(11)">polygon  7</a>
+          <a  (click)="mapService.goToPolygon(11)" [style.color]=" mapService.selectedBtn == 11 ? 'red' : 'black'">polygon 7</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(12)">polygon  8</a>
+          <a  (click)="mapService.goToPolygon(12)" [style.color]=" mapService.selectedBtn == 12 ? 'red' : 'black'">polygon 8</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(13)">polygon  9</a>
+          <a  (click)="mapService.goToPolygon(13)" [style.color]=" mapService.selectedBtn == 13 ? 'red' : 'black'">polygon 9</a>
         </li>
         <li>
-          <a  (click)="mapService.goToPolygon(14)">polygon  10</a>
+          <a  (click)="mapService.goToPolygon(14)" [style.color]=" mapService.selectedBtn == 14 ? 'red' : 'black'">polygon 10</a>
+        </li>
+      </ul>
+    </div>
+    <div id="buttons3">
+      <ul>
+        <li>
+          <a  (click)="mapService.goToPolygon(15)" [style.color]=" mapService.selectedBtn == 15 ? 'red' : 'black'">polygon 15</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(16)" [style.color]=" mapService.selectedBtn == 16 ? 'red' : 'black'">polygon 16</a>
+        </li>
+        <li>
+          <a  (click)="mapService.goToPolygon(17)" [style.color]=" mapService.selectedBtn == 17 ? 'red' : 'black'">polygon 17</a>
         </li>
       </ul>
     </div>

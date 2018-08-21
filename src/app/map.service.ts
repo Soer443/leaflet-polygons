@@ -41,6 +41,7 @@ export class MapService {
   private polylines = [];
   private perimeters = [];
   selectedPolygon = '';
+  private selectedBtn = 99;
 
   init() {
 
@@ -86,11 +87,12 @@ export class MapService {
   }
 
   goToPolygon(n) {
+    this.selectedBtn = n;
     this.mymap.flyToBounds( this.polygons[n], ANIMATE_OPTIONS);
     const latlngs = this.polygons[n].getLatLngs()[0];
     this.selectedPolygon = JSON.stringify(this.polygons[n].getLatLngs()[0].map((latlng) => ({lat: latlng.lat, lng: latlng.lng})));
-     console.log(this.selectedPolygon);
      return this.selectedPolygon;
+
   }
 
   addPerimeter(str) {
@@ -112,7 +114,6 @@ export class MapService {
         ];
         this.polylines.push(L.polyline(polyline, {color: 'red'}).addTo(this.mymap));
       });
-    // this.perimeters.concat(polylines);
   }
 
   removePerimeter() {
